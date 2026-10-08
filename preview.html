@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityShield - Newcomer Survival & Anti-Fraud Kit (Delhi NCR)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .transition-card {
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen font-sans antialiased">
+
+    <!-- Top Alert Notification Bar -->
+    <div class="bg-gradient-to-r from-red-600 via-amber-600 to-red-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-sm flex items-center justify-center gap-2">
+        <i data-lucide="shield-alert" class="w-4 h-4 shrink-0 animate-pulse"></i>
+        <span><strong>NEWCOMER SCAM WARNING:</strong> Never pay ₹1,000–₹2,000 for a "Visiting Pass" or "Gate Entry Pass" on OLX/Instagram before physically seeing the PG room!</span>
+        <button onclick="switchTab('scam')" class="underline font-bold hover:text-amber-200 ml-1">Learn More &rarr;</button>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm backdrop-blur-md bg-white/95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand / Logo -->
+                <div class="flex items-center gap-3">
+                    <button onclick="switchTab('home')" class="flex items-center gap-2 group text-left">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-xl tracking-tight text-slate-900">City<span class="text-blue-600">Shield</span></span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200">Delhi NCR Pilot</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500 font-medium">Newcomer Survival & Anti-Fraud Kit</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Desktop Navigation Links (Chronological Journey Tabs) -->
+                <nav class="hidden md:flex items-center gap-1 font-medium text-sm text-slate-600">
+                    <button onclick="switchTab('home')" id="tab-btn-home" class="nav-tab-btn px-3 py-2 rounded-lg text-blue-600 bg-blue-50 font-semibold flex items-center gap-1.5">
+                        <i data-lucide="compass" class="w-4 h-4"></i> Overview
+                    </button>
+                    <button onclick="switchTab('travel')" id="tab-btn-travel" class="nav-tab-btn px-3 py-2 rounded-lg hover:text-blue-600 hover:bg-slate-50 transition-colors flex items-center gap-1.5">
+                        <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-bold">1</span>
+                        <span>Travel & Arrival</span>
+                    </button>
+                    <button onclick="switchTab('stays')" id="tab-btn-stays" class="nav-tab-btn px-3 py-2 rounded-lg hover:text-blue-600 hover:bg-slate-50 transition-colors flex items-center gap-1.5">
+                        <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 text-xs flex items-center justify-center font-bold">2</span>
+                        <span>Room & PG</span>
+                    </button>
+                    <button onclick="switchTab('food')" id="tab-btn-food" class="nav-tab-btn px-3 py-2 rounded-lg hover:text-blue-600 hover:bg-slate-50 transition-colors flex items-center gap-1.5">
+                        <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">3</span>
+                        <span>Food & Daily</span>
+                    </button>
+                    <button onclick="switchTab('scam')" id="tab-btn-scam" class="nav-tab-btn px-3 py-2 rounded-lg hover:text-red-600 hover:bg-red-50 transition-colors flex items-center gap-1.5">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-red-600"></i>
+                        <span>Scam Shield</span>
+                    </button>
+                </nav>
+
+                <!-- SOS Emergency Action Button -->
+                <div class="flex items-center gap-2">
+                    <button onclick="openSosModal()" class="flex items-center gap-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs sm:text-sm px-3.5 py-2 rounded-lg shadow-sm shadow-red-500/30 transition-all hover:scale-105 active:scale-95 animate-pulse">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i>
+                        <span>SOS Helplines</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <main class="flex-grow">
+
+        <!-- ================= PAGE 1: OVERVIEW & HOME ================= -->
+        <div id="page-home" class="page-section">
+            <!-- Hero Section -->
+            <section class="relative bg-gradient-to-b from-blue-900 via-indigo-900 to-slate-900 text-white py-16 sm:py-20 overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="max-w-3xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-semibold uppercase tracking-wider mb-6">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span>Pilot City Hub: Delhi NCR</span>
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
+                            Arrived in Delhi NCR?<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-emerald-400">
+                                Zero Scams. Zero Confusion.
+                            </span>
+                        </h1>
+                        
+                        <p class="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
+                            The complete survival playbook for students, interns & newcomers:
+                            From station transit without auto touts, to safe PG deposits, clean tiffins, and scam protection.
+                        </p>
+
+                        <!-- Quick Action Buttons -->
+                        <div class="mt-8 flex flex-wrap gap-3">
+                            <button onclick="switchTab('travel')" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-500/30 flex items-center gap-2 transition-transform hover:-translate-y-0.5">
+                                <i data-lucide="navigation" class="w-4 h-4"></i>
+                                <span>1. Just Landed? Route Guide</span>
+                            </button>
+                            <button onclick="switchTab('stays')" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm backdrop-blur-sm flex items-center gap-2 transition-transform hover:-translate-y-0.5">
+                                <i data-lucide="home" class="w-4 h-4"></i>
+                                <span>2. Find Honest PG / Rooms</span>
+                            </button>
+                            <button onclick="switchTab('scam')" class="px-5 py-3 rounded-xl bg-red-600/90 hover:bg-red-600 text-white font-bold text-sm shadow-lg shadow-red-600/30 flex items-center gap-2 transition-transform hover:-translate-y-0.5">
+                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                                <span>Check Scam Radar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Benchmark Badges -->
+                    <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-700/60 pt-6">
+                        <div>
+                            <div class="text-2xl font-black text-blue-400">₹30</div>
+                            <div class="text-xs text-slate-400 mt-1">Official Delhi Auto Base Fare</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-emerald-400">₹0</div>
+                            <div class="text-xs text-slate-400 mt-1">Visit Pass Fee (Don't pay OLX touts!)</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-sky-400">19 mins</div>
+                            <div class="text-xs text-slate-400 mt-1">Airport T3 to City via Metro (₹60)</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-red-400">112 / 1930</div>
+                            <div class="text-xs text-slate-400 mt-1">Police & Cybercrime SOS</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4-Step Journey Cards -->
+            <section class="py-12 bg-white border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">Step-by-Step Flow</span>
+                        <h2 class="text-3xl font-black text-slate-900 mt-2">The Newcomer 4-Step Journey</h2>
+                        <p class="text-slate-600 text-sm mt-1">Follow in chronological order to protect your money and time.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <!-- Step 1 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-card flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-base mb-3">1</div>
+                                <h3 class="font-bold text-lg text-slate-900 mb-1">Travel & Arrival</h3>
+                                <p class="text-xs text-slate-600 mb-4">Exit via Ajmeri Gate. Never board unmetered autos. Use Delhi Metro WhatsApp QR ticketing.</p>
+                            </div>
+                            <button onclick="switchTab('travel')" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                                Open Transit Guide &rarr;
+                            </button>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-card flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-base mb-3">2</div>
+                                <h3 class="font-bold text-lg text-slate-900 mb-1">Room & PG Finder</h3>
+                                <p class="text-xs text-slate-600 mb-4">Explore North Campus, Mukherjee Nagar, Laxmi Nagar & Noida. Avoid the OLX gate-pass trap.</p>
+                            </div>
+                            <button onclick="switchTab('stays')" class="text-xs font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-1">
+                                Search Safe Rooms &rarr;
+                            </button>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-card flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-base mb-3">3</div>
+                                <h3 class="font-bold text-lg text-slate-900 mb-1">Food & Essentials</h3>
+                                <p class="text-xs text-slate-600 mb-4">Clean student tiffins (₹2,800/mo), 20L RO water delivery (₹35), laundromats, and pharmacies.</p>
+                            </div>
+                            <button onclick="switchTab('food')" class="text-xs font-bold text-amber-600 hover:text-amber-800 flex items-center gap-1">
+                                Find Daily Services &rarr;
+                            </button>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="bg-slate-50 border border-red-200 rounded-2xl p-6 transition-card flex flex-col justify-between shadow-sm shadow-red-100">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-red-100 text-red-700 flex items-center justify-center font-black text-base mb-3">4</div>
+                                <h3 class="font-bold text-lg text-slate-900 mb-1">Anti-Scam Shield</h3>
+                                <p class="text-xs text-slate-600 mb-4">Interactive scam detector quiz, rogue broker blacklist, and direct 112 / 1930 helplines.</p>
+                            </div>
+                            <button onclick="switchTab('scam')" class="text-xs font-bold text-red-600 hover:text-red-800 flex items-center gap-1">
+                                Open Scam Shield &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Diagnostic Tools Section -->
+            <section class="py-12 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                        
+                        <!-- Tool 1: Scam Checker Wizard -->
+                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center">
+                                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900">"Am I Being Scammed?" Checker</h3>
+                                    <p class="text-xs text-slate-500">Pick a situation you just encountered for an immediate safety verdict</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">What happened with you?</label>
+                                    <select id="scamScenarioSelect" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-slate-50">
+                                        <option value="">-- Choose a suspicious scenario --</option>
+                                        <option value="gate_pass">A broker/owner asked for ₹1,500 "Visiting Pass" before showing PG room</option>
+                                        <option value="station_hotel">Auto driver/tout at railway station says "Your hotel is closed/sealed"</option>
+                                        <option value="auto_nometer">Auto driver refused meter and asked ₹400 for a 4-5 km ride</option>
+                                        <option value="electricity_trap">PG owner mentions electricity "as per sub-meter" without fixed unit rate</option>
+                                        <option value="no_agreement">Landlord says "No need for written agreement, just trust me verbally"</option>
+                                        <option value="telegram_job">Got WhatsApp message for part-time "Hotel Review / YouTube like" job</option>
+                                    </select>
+                                </div>
+
+                                <button id="analyzeScamBtn" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors">
+                                    <i data-lucide="search" class="w-4 h-4"></i>
+                                    <span>Analyze Situation Immediately</span>
+                                </button>
+
+                                <div id="scamAnalysisResult" class="hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Tool 2: Delhi Auto Fare Benchmark Tool -->
+                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900">Delhi Auto Fare Benchmark</h3>
+                                    <p class="text-xs text-slate-500">Official government meter rates so drivers cannot fleece you</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Trip Distance (Kilometers)</label>
+                                    <div class="relative">
+                                        <input type="number" id="autoDistanceInput" placeholder="e.g. 6" min="1" max="50" step="0.5" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none pl-10 bg-slate-50">
+                                        <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="autoNightToggle" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300">
+                                    <label for="autoNightToggle" class="text-xs font-medium text-slate-700">Night travel surcharge (11:00 PM – 5:00 AM, +25%)</label>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-blue-700 font-semibold uppercase">Legal Meter Fare</span>
+                                        <div id="autoFareResult" class="text-3xl font-black text-blue-900 mt-0.5">₹--</div>
+                                    </div>
+                                    <button id="calcAutoFareBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 transition-colors">
+                                        Calculate
+                                    </button>
+                                </div>
+
+                                <div id="autoBreakdownResult" class="text-xs text-slate-500 leading-relaxed">
+                                    Delhi Govt Rate: ₹30 base fare (first 1.5 km) + ₹11 per km thereafter.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= PAGE 2: TRAVEL & ARRIVAL ================= -->
+        <div id="page-travel" class="page-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-200">Phase 1</span>
+                    <h1 class="text-3xl font-black text-slate-900 mt-2">Station & Airport Transit Navigator</h1>
+                    <p class="text-slate-600 text-sm mt-1">Direct exits, metro connections, and fare benchmarks for New Delhi, IGI Airport, and Anand Vihar.</p>
+                </div>
+
+                <!-- Station Advisory Box -->
+                <div class="bg-gradient-to-br from-blue-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl mb-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                        <div class="md:col-span-2 space-y-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-blue-500/30 text-blue-200 border border-blue-400/30">
+                                Critical Arrival Advisory
+                            </span>
+                            <h2 class="text-2xl font-bold">New Delhi Railway Station (NDLS)</h2>
+
+                            <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-xs sm:text-sm space-y-1.5">
+                                <strong class="text-emerald-300 block text-xs uppercase font-bold tracking-wider">ALWAYS EXIT VIA AJMERI GATE (Platform 16 Side):</strong>
+                                <p class="text-slate-200 leading-relaxed">
+                                    The Ajmeri Gate exit features an air-conditioned skywalk connecting directly to the Delhi Metro Yellow Line and Airport Express, plus an official Delhi Police prepaid auto booth.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-red-950/60 border border-red-500/30 text-xs sm:text-sm">
+                                <strong class="text-red-300 block text-xs uppercase font-bold tracking-wider">DANGER ON PAHARGANJ SIDE (Platform 1):</strong>
+                                <p class="text-red-100 leading-relaxed">
+                                    Aggressive touts approach newcomers claiming: "All hotels in Paharganj are sealed/curfewed" or pose as government tourism agents. Never board unmetered autos waiting on the street!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/15 space-y-3">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-200 flex items-center gap-1.5">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Safe Transit Options
+                            </h3>
+                            <ul class="text-xs text-slate-200 space-y-2">
+                                <li>&bull; <strong>Delhi Metro:</strong> Yellow Line & Airport Express Line directly under station.</li>
+                                <li>&bull; <strong>Delhi Police Prepaid Auto:</strong> Fixed fare slip counter at exit.</li>
+                                <li>&bull; <strong>Uber/Ola:</strong> Dedicated parking pillar pickup.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Metro QR Code Feature -->
+                <div class="bg-gradient-to-br from-emerald-900 to-teal-950 text-white rounded-3xl p-6 sm:p-8 shadow-sm mb-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-400/30">
+                            <i data-lucide="qr-code" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Skip Token Queues: Official DMRC WhatsApp Ticket</h3>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-200 mb-4">
+                        Never stand in long ticket queues at New Delhi Station or Rajiv Chowk. Book your QR ticket via WhatsApp in 30 seconds!
+                    </p>
+                    <div class="bg-white/10 p-4 rounded-2xl border border-white/15 text-xs text-slate-200 space-y-2">
+                        <div>1. Save DMRC official WhatsApp: <strong class="text-white">+91 96508 55800</strong></div>
+                        <div>2. Send <strong>"Hi"</strong> and select origin & destination stations.</div>
+                        <div>3. Pay via UPI and scan the generated QR ticket at the automatic gate.</div>
+                    </div>
+                </div>
+
+                <!-- Common Routes Cards -->
+                <h3 class="text-xl font-black text-slate-900 mb-4">Transit Routes to Major Hubs</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm transition-card">
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Metro Yellow Line</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2">To North Campus / Hudson Lane</h4>
+                        <div class="text-emerald-700 font-extrabold text-lg my-1">₹30 &bull; 18 mins</div>
+                        <p class="text-xs text-slate-600">Board Yellow Line from New Delhi Metro to Vishwavidyalaya / GTB Nagar Station.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm transition-card">
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Metro Yellow + E-Rickshaw</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2">To Mukherjee Nagar (UPSC Hub)</h4>
+                        <div class="text-emerald-700 font-extrabold text-lg my-1">₹30 + ₹10 &bull; 25 mins</div>
+                        <p class="text-xs text-slate-600">Metro to GTB Nagar Gate 2, then hop on shared E-rickshaw for fixed ₹10.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm transition-card">
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Airport Express Metro</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2">IGI Airport T3 to Central Delhi</h4>
+                        <div class="text-emerald-700 font-extrabold text-lg my-1">₹60 &bull; 19 mins</div>
+                        <p class="text-xs text-slate-600">Direct underground non-stop Orange Line to New Delhi Station. Saves 90 mins of traffic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 3: ROOM & PG NAVIGATOR ================= -->
+        <div id="page-stays" class="page-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Phase 2</span>
+                    <h1 class="text-3xl font-black text-slate-900 mt-2">PG, Hostel & Room Navigator</h1>
+                    <p class="text-slate-600 text-sm mt-1">Verified student & job hubs with rent expectations and deposit shields.</p>
+                </div>
+
+                <!-- Scam Warning Banner -->
+                <div class="bg-red-600 text-white p-6 rounded-3xl shadow-lg shadow-red-500/20 mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+                            <i data-lucide="shield-alert" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs uppercase font-black tracking-widest text-red-200">Anti-Scam Golden Rule #1</span>
+                            <h3 class="text-xl font-bold text-white mt-0.5">Never Pay A Single Rupee Before Visiting</h3>
+                            <p class="text-xs sm:text-sm text-red-100 mt-1 max-w-2xl leading-relaxed">
+                                Fraudsters on OLX/Instagram claim to be Army Officers asking for ₹1,500 "Society Gate Passes" or "Viewing Tokens". Genuine landlords NEVER charge an advance fee to show a room.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10-Point Pre-Signing Room Inspection Checklist -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-12">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                            <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">10-Point Pre-Signing Room Inspection Checklist</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-700">
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                            <strong class="text-slate-900 block mb-1">1. Electricity Unit Rate (Most Common Trap):</strong>
+                            <span>Ask: "Is electricity charged at domestic government slab (~₹7-8) or commercial ₹12-16/unit?" Get the exact per-unit price written on the agreement.</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                            <strong class="text-slate-900 block mb-1">2. Deposit Refund Timeline:</strong>
+                            <span>Ensure agreement clearly states the deposit will be returned within 7 days of moving out via bank transfer, with deductions only for actual unpaid bills.</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                            <strong class="text-slate-900 block mb-1">3. Notice Period Policy:</strong>
+                            <span>Standard is 30 days. Avoid landlords who demand 60 or 90 days notice, or who state deposits are non-refundable during the first 6 months.</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                            <strong class="text-slate-900 block mb-1">4. Day-1 Video Evidence:</strong>
+                            <span>On the day you take keys, record a continuous 3-minute video showing wall condition, fan, taps, and mirror. Send it to the landlord on WhatsApp as proof.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Stays Cards -->
+                <h3 class="text-xl font-black text-slate-900 mb-4">Verified Sample Accommodations</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm transition-card">
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700">Co-living &bull; Double Sharing</span>
+                        <h4 class="font-bold text-lg text-slate-900 mt-2">Greenwood Scholars Co-living</h4>
+                        <p class="text-xs text-slate-500 mb-3">Hudson Lane, Kingsway Camp (Near GTB Nagar Gate 3)</p>
+                        <div class="p-3 rounded-2xl bg-emerald-50 text-emerald-900 font-black text-xl mb-3">₹8,500 <span class="text-xs font-normal text-emerald-700">/mo (Food + AC + Wi-Fi)</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 text-[11px] text-slate-700 mb-4">
+                            <strong>Inspection Question:</strong> Inspect 3-meal menu and ask if electricity is fixed or sub-metered.
+                        </div>
+                        <a href="tel:+919811024510" class="block w-full py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center rounded-xl">Call Landlord (+91 98110 24510)</a>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm transition-card">
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700">Girls PG &bull; Double Sharing</span>
+                        <h4 class="font-bold text-lg text-slate-900 mt-2">Shree Durga Girls Premium Residency</h4>
+                        <p class="text-xs text-slate-500 mb-3">H-Block, Vijay Nagar Single Storey</p>
+                        <div class="p-3 rounded-2xl bg-emerald-50 text-emerald-900 font-black text-xl mb-3">₹9,500 <span class="text-xs font-normal text-emerald-700">/mo (3 Meals + Biometric)</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 text-[11px] text-slate-700 mb-4">
+                            <strong>Inspection Question:</strong> Confirm curfew timing and parent visiting hours.
+                        </div>
+                        <a href="tel:+919873019283" class="block w-full py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center rounded-xl">Call Landlord (+91 98730 19283)</a>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm transition-card">
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700">Boys PG &bull; Triple Sharing</span>
+                        <h4 class="font-bold text-lg text-slate-900 mt-2">Sankalp Study PG & Hostel</h4>
+                        <p class="text-xs text-slate-500 mb-3">B-12, Mukherjee Nagar (Near Batra Cinema)</p>
+                        <div class="p-3 rounded-2xl bg-emerald-50 text-emerald-900 font-black text-xl mb-3">₹5,500 <span class="text-xs font-normal text-emerald-700">/mo (Food + 24/7 Library)</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 text-[11px] text-slate-700 mb-4">
+                            <strong>Inspection Question:</strong> Confirm unit rate of electricity on sub-meter.
+                        </div>
+                        <a href="tel:+919891234091" class="block w-full py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center rounded-xl">Call Landlord (+91 98912 34091)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 4: FOOD & DAILY ESSENTIALS ================= -->
+        <div id="page-food" class="page-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-amber-600 uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-200">Phase 3</span>
+                    <h1 class="text-3xl font-black text-slate-900 mt-2">Food, Water & Daily Life Essentials</h1>
+                    <p class="text-slate-600 text-sm mt-1">Clean student mess services, doorstep 20L RO water delivery, and laundry benchmarks.</p>
+                </div>
+
+                <!-- Daily Living Benchmark Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-3">
+                            <i data-lucide="utensils" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 mb-1">Monthly Tiffin Benchmark</h3>
+                        <div class="text-2xl font-black text-amber-700 mb-2">₹2,600 – ₹3,500 <span class="text-xs text-slate-500 font-normal">/ mo</span></div>
+                        <p class="text-xs text-slate-600 mb-3">Covers 2 meals (Lunch + Dinner) with 4 rotis, dal, subzi, rice & salad.</p>
+                        <div class="p-2.5 rounded-xl bg-amber-50 text-[11px] text-amber-900 font-medium">
+                            &bull; Always take a 2-day paid trial (₹80-100/meal) before paying 1 full month advance.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center mb-3">
+                            <i data-lucide="droplet" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 mb-1">20-Litre RO Water Can</h3>
+                        <div class="text-2xl font-black text-sky-700 mb-2">₹30 – ₹40 <span class="text-xs text-slate-500 font-normal">/ refill</span></div>
+                        <p class="text-xs text-slate-600 mb-3">Doorstep delivered 20L chilled or regular RO water cans.</p>
+                        <div class="p-2.5 rounded-xl bg-sky-50 text-[11px] text-sky-900 font-medium">
+                            &bull; Never drink tap water directly in old Delhi areas without boiling or RO purifier.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-3">
+                            <i data-lucide="shirt" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 mb-1">Laundry & Steam Ironing</h3>
+                        <div class="text-2xl font-black text-indigo-700 mb-2">₹60 – ₹80 <span class="text-xs text-slate-500 font-normal">/ kg wash</span></div>
+                        <p class="text-xs text-slate-600 mb-3">Local laundromats offer wash, dry & fold services by weight, or steam iron at ₹6-8/cloth.</p>
+                        <div class="p-2.5 rounded-xl bg-indigo-50 text-[11px] text-indigo-900 font-medium">
+                            &bull; Always get a receipt or take a photo of the clothes bag handed over.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verified Services -->
+                <h3 class="text-xl font-black text-slate-900 mb-4">Sample Verified Services</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">Tiffin Service &bull; Pure Veg</span>
+                        <h4 class="font-bold text-lg text-slate-900 mt-2">Maa Annapurna Daily Tiffin Express</h4>
+                        <p class="text-xs text-slate-500 mb-2">Hudson Lane, Kingsway Camp</p>
+                        <div class="text-xs font-bold text-slate-800 mb-3">₹2,800 / month (Lunch + Dinner) &bull; Call: +91 98112 33490</div>
+                        <p class="text-xs text-slate-600">Homestyle stainless steel thermal dabbas with 4 rotis, seasonal subzi, dal, rice & salad.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded">RO Water &bull; Mineral Water</span>
+                        <h4 class="font-bold text-lg text-slate-900 mt-2">Ganga Pure RO Water 20L Supply</h4>
+                        <p class="text-xs text-slate-500 mb-2">Vikas Marg, Laxmi Nagar</p>
+                        <div class="text-xs font-bold text-slate-800 mb-3">₹35 per 20-Litre Can &bull; Call: +91 98711 00412</div>
+                        <p class="text-xs text-slate-600">Doorstep delivery up to 4th floor, sealed caps with ISI certified purifiers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 5: ANTI-SCAM SHIELD ================= -->
+        <div id="page-scam" class="page-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-200">Phase 4</span>
+                    <h1 class="text-3xl font-black text-slate-900 mt-2">Anti-Fraud Shield & Blacklist</h1>
+                    <p class="text-slate-600 text-sm mt-1">Unmasking touts, fake brokers, unmetered autos, and advance fee scams in Delhi NCR.</p>
+                </div>
+
+                <!-- Scam Radar Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                    <div class="bg-white rounded-3xl p-6 border border-red-200 shadow-sm transition-card">
+                        <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-red-600 text-white">Critical Threat</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2 mb-1">The "Visiting Pass / Gate Entry Pass" Scam</h4>
+                        <p class="text-xs text-slate-600 mb-3">
+                            Scammer poses as Army Officer/NRI owner on OLX, asking for ₹1,500–₹2,000 for a "refundable digital gate pass" via QR code before showing the room. They block you immediately after payment.
+                        </p>
+                        <div class="p-3 rounded-xl bg-red-50 text-xs text-red-900">
+                            <strong>Defense Rule:</strong> NEVER transfer money before meeting physically inside the room.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-red-200 shadow-sm transition-card">
+                        <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-red-600 text-white">Critical Threat</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2 mb-1">The "Hotel Closed / Curfewed" Station Scam</h4>
+                        <p class="text-xs text-slate-600 mb-3">
+                            Touts outside New Delhi Station claim your booked hotel burned down or is under police seal, steering you to partner hotels charging ₹5,000/night for dingy rooms.
+                        </p>
+                        <div class="p-3 rounded-xl bg-red-50 text-xs text-red-900">
+                            <strong>Defense Rule:</strong> Call the hotel yourself from your own phone. Walk directly to Delhi Metro.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-amber-200 shadow-sm transition-card">
+                        <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-600 text-white">High Threat</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2 mb-1">Sub-Meter Electricity Overcharge Trap</h4>
+                        <p class="text-xs text-slate-600 mb-3">
+                            PG owner charges ₹14 to ₹16 per unit on domestic sub-meters instead of government ₹6-8 rate, resulting in unexpected ₹5,000 summer electricity bills.
+                        </p>
+                        <div class="p-3 rounded-xl bg-amber-50 text-xs text-amber-900">
+                            <strong>Defense Rule:</strong> Fix unit cost explicitly in the written agreement before paying security deposit.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-red-200 shadow-sm transition-card">
+                        <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-red-600 text-white">Critical Threat</span>
+                        <h4 class="font-bold text-base text-slate-900 mt-2 mb-1">"Hotel Review / Telegram Task" Part-Time Job Scam</h4>
+                        <p class="text-xs text-slate-600 mb-3">
+                            Newcomer receives WhatsApp message offering ₹3,000/day for liking YouTube videos. Scammer pays ₹200 initially, then demands ₹10,000 "prepaid investment".
+                        </p>
+                        <div class="p-3 rounded-xl bg-red-50 text-xs text-red-900">
+                            <strong>Defense Rule:</strong> Genuine companies never ask you to pay money to earn salary. Dial 1930 immediately.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Directory -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Official 24/7 Emergency Helplines</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="tel:112" class="p-4 rounded-2xl bg-red-50 border border-red-200 block hover:bg-red-100 transition-colors">
+                            <span class="text-xs text-red-600 font-bold uppercase">Police / Unified</span>
+                            <div class="text-2xl font-black text-red-900">112</div>
+                            <p class="text-xs text-slate-600 mt-1">PCR van dispatch across Delhi NCR</p>
+                        </a>
+
+                        <a href="tel:1091" class="p-4 rounded-2xl bg-purple-50 border border-purple-200 block hover:bg-purple-100 transition-colors">
+                            <span class="text-xs text-purple-600 font-bold uppercase">Women Safety</span>
+                            <div class="text-2xl font-black text-purple-900">1091</div>
+                            <p class="text-xs text-slate-600 mt-1">Dedicated women distress assistance</p>
+                        </a>
+
+                        <a href="tel:1930" class="p-4 rounded-2xl bg-amber-50 border border-amber-200 block hover:bg-amber-100 transition-colors">
+                            <span class="text-xs text-amber-600 font-bold uppercase">Cybercrime Fraud</span>
+                            <div class="text-2xl font-black text-amber-900">1930</div>
+                            <p class="text-xs text-slate-600 mt-1">Freeze fraudulent UPI/bank transfers</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Emergency SOS Modal -->
+    <div id="sosModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-red-100 relative">
+            <button onclick="closeSosModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3 text-red-600 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
+                    <i data-lucide="phone-call" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">Emergency & Helplines</h3>
+                    <p class="text-xs text-slate-500">Official 24/7 emergency numbers for Delhi NCR</p>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <a href="tel:112" class="flex items-center justify-between p-3.5 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-sm">112</div>
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Police / Unified Emergency</div>
+                            <div class="text-xs text-slate-500">Direct PCR van response</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-semibold bg-red-600 text-white px-3 py-1.5 rounded-lg">Call 112</span>
+                </a>
+
+                <a href="tel:1091" class="flex items-center justify-between p-3.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold text-sm">1091</div>
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Women Safety Helpline</div>
+                            <div class="text-xs text-slate-500">24/7 dedicated Delhi Police cell</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-semibold bg-purple-600 text-white px-3 py-1.5 rounded-lg">Call 1091</span>
+                </a>
+
+                <a href="tel:1930" class="flex items-center justify-between p-3.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold text-sm">1930</div>
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Cyber Crime Financial Fraud</div>
+                            <div class="text-xs text-slate-500">Report UPI / deposit scams</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-semibold bg-amber-600 text-white px-3 py-1.5 rounded-lg">Call 1930</span>
+                </a>
+            </div>
+
+            <div class="mt-5 text-center">
+                <button onclick="closeSosModal()" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer -->
+    <footer class="bg-slate-900 text-slate-300 mt-auto border-t border-slate-800 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </div>
+                <span class="font-bold text-xl text-white">City<span class="text-blue-400">Shield</span></span>
+            </div>
+            <p class="text-xs text-slate-400">&copy; 2026 CityShield. Built for newcomer safety & empowerment in Delhi NCR.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Tab switching logic
+        function switchTab(tabName) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600', 'bg-blue-50', 'font-semibold');
+                btn.classList.add('text-slate-600');
+            });
+
+            const targetPage = document.getElementById('page-' + tabName);
+            const targetBtn = document.getElementById('tab-btn-' + tabName);
+
+            if (targetPage) targetPage.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.add('text-blue-600', 'bg-blue-50', 'font-semibold');
+                targetBtn.classList.remove('text-slate-600');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // SOS Modal
+        function openSosModal() {
+            document.getElementById('sosModal').classList.remove('hidden');
+        }
+        function closeSosModal() {
+            document.getElementById('sosModal').classList.add('hidden');
+        }
+
+        // Auto Fare Calculator
+        document.getElementById('calcAutoFareBtn').addEventListener('click', () => {
+            const km = parseFloat(document.getElementById('autoDistanceInput').value);
+            if (isNaN(km) || km <= 0) return;
+
+            let fare = 30;
+            if (km > 1.5) fare += (km - 1.5) * 11;
+            if (document.getElementById('autoNightToggle').checked) fare *= 1.25;
+
+            fare = Math.round(fare);
+            document.getElementById('autoFareResult').textContent = '₹' + fare;
+            document.getElementById('autoBreakdownResult').innerHTML = 
+                `Govt Rate: ₹30 (first 1.5km) + ₹${Math.round(km > 1.5 ? (km - 1.5)*11 : 0)} for remaining distance. <span class="text-emerald-700 font-bold block">If driver demands ₹${fare + 40}+, refuse or use Uber/Ola auto!</span>`;
+        });
+
+        // Scam Detector Quiz
+        const scamMap = {
+            'gate_pass': {
+                risk: 'CRITICAL 100% FRAUD',
+                title: 'The Fake "Gate Pass / Viewing Fee" Trap',
+                msg: 'DO NOT PAY! Scammers pose as Army Officers or NRI owners asking for ₹1,500 via QR code. Genuine landlords never charge money to show a room.',
+                action: 'Block the number immediately and report to 1930.'
+            },
+            'station_hotel': {
+                risk: 'CRITICAL 100% SCAM',
+                title: 'The "Hotel Sealed / Curfewed" Station Trick',
+                msg: 'Touts claim your hotel is closed to steer you to a partner hotel for ₹5,000/night. Call the hotel yourself from your own phone and board the Delhi Metro.',
+                action: 'Walk directly to the Ajmeri Gate Yellow Line Metro.'
+            },
+            'auto_nometer': {
+                risk: 'HIGH OVERCHARGING',
+                title: 'Unmetered Auto Extortion',
+                msg: 'Delhi law requires three-wheelers to run on electronic meters (₹30 for 1.5km, ₹11/km after). Demanding ₹400 for 4 km is illegal.',
+                action: 'Use the official Delhi Police Prepaid Auto Booth or Rapido/Uber/Ola.'
+            },
+            'electricity_trap': {
+                risk: 'HIGH RENTAL TRAP',
+                title: 'Sub-Meter Electricity Markup',
+                msg: 'Landlords charge ₹14-16 per unit on private meters instead of standard ₹6-8 domestic slabs.',
+                action: 'Get the exact per-unit rate written on the signed rent agreement before paying deposit.'
+            },
+            'no_agreement': {
+                risk: 'CRITICAL DEPOSIT LOSS',
+                title: 'No Written Agreement Trap',
+                msg: 'Landlords who refuse a signed agreement almost never return the security deposit when moving out.',
+                action: 'Insist on a written agreement with a 7-day deposit refund timeline.'
+            },
+            'telegram_job': {
+                risk: 'CRITICAL CYBER FRAUD',
+                title: 'Part-Time "Hotel Review" Task Scam',
+                msg: 'Scammers offer ₹3,000/day for liking YouTube videos, pay ₹200 initially, then demand thousands to "unlock earnings".',
+                action: 'Never pay money to get a salary. Dial 1930.'
+            }
+        };
+
+        document.getElementById('analyzeScamBtn').addEventListener('click', () => {
+            const val = document.getElementById('scamScenarioSelect').value;
+            const res = document.getElementById('scamAnalysisResult');
+            if (!val || !scamMap[val]) return;
+
+            const d = scamMap[val];
+            res.classList.remove('hidden');
+            res.innerHTML = `
+                <div class="p-5 rounded-2xl bg-red-50 border border-red-200 mt-4 text-xs">
+                    <span class="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-black text-[10px] uppercase">${d.risk}</span>
+                    <h4 class="font-bold text-sm text-slate-900 mt-2">${d.title}</h4>
+                    <p class="text-slate-700 mt-1 leading-relaxed">${d.msg}</p>
+                    <div class="mt-3 p-2.5 bg-white rounded-lg border border-red-200 text-red-900 font-semibold">
+                        What to do: ${d.action}
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        });
+
+        // Initialize Lucide icons
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# CityShield - Git Ignore
+
+# Environment & Config overrides
+.env
+*.local
+
+# Database runtime files (schema.sql and seed.sql are tracked)
+database/*.sqlite
+database/*.sqlite-journal
+database/*.db
+
+# Operating System files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Log files
+*.log
